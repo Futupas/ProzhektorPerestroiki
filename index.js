@@ -130,33 +130,25 @@ const app = express()
 })
 .listen(PORT, () => {
     console.log(`Listening on ${ PORT }`);
-    const { Server } = require('ws');
-
-    const wss = new Server({ server: app });
-    wss.on('connection', (ws) => {
-        console.log('Client connected');
-        ws.on('close', () => console.log('Client disconnected'));
-    });
-
-    setInterval(() => {
-    wss.clients.forEach((client) => {
-        client.send(new Date().toTimeString());
-    });
-    }, 1000);
 } );
 
 
 
-// const { Server } = require('ws');
+const { Server } = require('ws');
 
-// const wss = new Server({ app });
-// wss.on('connection', (ws) => {
-//     console.log('Client connected');
-//     ws.on('close', () => console.log('Client disconnected'));
-//   });
-
-// setInterval(() => {
-// wss.clients.forEach((client) => {
-//     client.send(new Date().toTimeString());
-// });
-// }, 1000);
+const wss = new Server({ server: app });
+wss.on('connection', (ws) => {
+    console.log('Client connected');
+    ws.on('close', () => console.log('Client disconnected'));
+});
+wss.on('message', function incoming(data) {
+    console.log('incoming ws data: ' + data);
+    wss.clients.forEach((client) => {
+        client.send('someone sent: ' + data);
+    });
+});
+setInterval(() => {
+    wss.clients.forEach((client) => {
+        client.send(new Date().toTimeString());
+    });
+}, 1000);

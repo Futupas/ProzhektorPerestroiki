@@ -8,7 +8,10 @@ socket.onopen = function(e) {
 };
 
 socket.onmessage = function(event) {
-  alert(`[message] Данные получены с сервера: ${event.data}`);
+  console.log(`[message] Данные получены с сервера: ${event.data}`);
+  let div = document.querySelector('div');
+  div.innerHTML = event.data;
+  main.appendChild(div);
 };
 
 socket.onclose = function(event) {
@@ -24,3 +27,7 @@ socket.onclose = function(event) {
 socket.onerror = function(error) {
   alert(`[error] ${error.message}`);
 };
+
+function senddata() {
+    socket.send("data sent");
+}
