@@ -109,6 +109,12 @@ express()
     res.end('Prozhektor perestroiki b');
 
 })
+.get('/db_test', (req, res) => {
+
+    res.writeHead(200, {'Content-Type': 'text/plain'});
+    res.end('Prozhektor perestroiki ' + process.env.var1);
+
+})
 .listen(PORT, () => {
     console.log(`Listening on ${ PORT }`);
 } );
