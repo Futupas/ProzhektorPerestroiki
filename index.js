@@ -68,7 +68,7 @@ express()
     var webshot = require('webshot');
 
     webshot(htmlFile, 'static/file.png', options, function(err) {
-        res.end('Prozhektor perestroiki ');
+        res.sendfile('static/file.png');
     });
 
 
