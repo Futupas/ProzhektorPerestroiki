@@ -140,13 +140,14 @@ const wss = new Server({ server: app });
 wss.on('connection', (ws) => {
     console.log('Client connected');
     ws.on('close', () => console.log('Client disconnected'));
-});
-wss.on('message', function incoming(data) {
-    console.log('incoming ws data: ' + data);
-    wss.clients.forEach((client) => {
-        client.send('someone sent: ' + data);
+    ws.on('message', function incoming(data) {
+        console.log('incoming ws data: ' + data);
+        wss.clients.forEach((client) => {
+            client.send('someone sent: ' + data);
+        });
     });
 });
+
 setInterval(() => {
     wss.clients.forEach((client) => {
         client.send(new Date().toTimeString());
