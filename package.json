@@ -1,0 +1,34 @@
+{
+    "name": "prozhektor-perestroiki",
+    "version": "0.3.0",
+    "author": "Futupas",
+    "description": "the art of the future: dynamically generated picture, where everyone changes the picture",
+    "engines": {
+      "node": "11.x"
+    },
+    "main": "index.js",
+    "scripts": {
+      "start": "node index.js",
+      "test": "node test.js"
+    },
+    "dependencies": {
+      "ejs": "^2.5.6",
+      "express": "^4.15.2",
+      "jsdom": "^16.2.2",
+      "webshot": "^0.18.0"
+    },
+    "devDependencies": {
+      "got": "^11.3.0",
+      "tape": "^4.7.0"
+    },
+    "repository": {
+      "type": "git",
+      "url": "https://github.com/Futupas/Art1"
+    },
+    "keywords": [
+      "node",
+      "heroku",
+      "express"
+    ],
+    "license": "MIT"
+}
