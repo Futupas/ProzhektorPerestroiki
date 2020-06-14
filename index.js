@@ -56,7 +56,7 @@ express()
     res.end('Prozhektor perestroiki b');
 })
 .get('/screen', (req, res) => {
-    res.writeHead(200, {'Content-Type': 'text/plain'});
+    // res.writeHead(200, {'Content-Type': 'text/plain'});
 
     var options = {
         windowSize: { width: 800, height: 800 },
