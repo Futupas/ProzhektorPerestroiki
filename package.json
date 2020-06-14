@@ -16,7 +16,8 @@
       "express": "^4.15.2",
       "jsdom": "^16.2.2",
       "webshot": "^0.18.0",
-      "pg-promise": "^10.5.6"
+      "pg-promise": "^10.5.6",
+      "ws": "^7.3.0"
     },
     "devDependencies": {
       "got": "^11.3.0",
