@@ -9,7 +9,7 @@ socket.onopen = function(e) {
 
 socket.onmessage = function(event) {
   console.log(`[message] Данные получены с сервера: ${event.data}`);
-  let div = document.querySelector('div');
+  let div = document.createElement('div');
   div.innerHTML = event.data;
   main.appendChild(div);
 };
