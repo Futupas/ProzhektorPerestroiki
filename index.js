@@ -134,9 +134,9 @@ const app = express()
 
 
 
-const { WebSocketServer } = require('ws');
+const { Server } = require('ws');
 
-const wss = new WebSocketServer({ app });
+const wss = new Server({ app });
 wss.on('connection', (ws) => {
     console.log('Client connected');
     ws.on('close', () => console.log('Client disconnected'));

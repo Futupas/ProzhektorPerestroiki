@@ -1,5 +1,5 @@
 'use strict';
-let socket = new WebSocket("wss://prozhektorperestroiki.herokuapp.com/websocket");
+let socket = new WebSocket("wss://prozhektorperestroiki.herokuapp.com/");
 
 socket.onopen = function(e) {
   alert("[open] Соединение установлено");
