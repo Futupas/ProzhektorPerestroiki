@@ -42,7 +42,6 @@ body{
 `;
 
 
-const express = require('express');
 const WebSocket = require('ws'); 
 const socketServer = new WebSocket.Server({port: 3030});
 socketServer.on('connection', (socketClient) => {
