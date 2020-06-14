@@ -42,21 +42,7 @@ body{
 `;
 
 
-const WebSocket = require('ws'); 
-const socketServer = new WebSocket.Server({port: 3030});
-socketServer.on('connection', (socketClient) => {
-  console.log('connected');
-  console.log('client Set length: ', socketServer.clients.size);
-  socketClient.on('close', (socketClient) => {
-    console.log('closed');
-    console.log('Number of clients: ', socketServer.clients.size);
-  });
-});
-
-
-
-
-express()
+const app = express()
 .use(express.static('static'))
 .get('/', (req, res) => {
     res.writeHead(200, {'Content-Type': 'text/plain'});
@@ -145,3 +131,19 @@ express()
 .listen(PORT, () => {
     console.log(`Listening on ${ PORT }`);
 } );
+
+
+
+const { WebSocketServer } = require('ws');
+
+const wss = new WebSocketServer({ app });
+wss.on('connection', (ws) => {
+    console.log('Client connected');
+    ws.on('close', () => console.log('Client disconnected'));
+  });
+
+setInterval(() => {
+wss.clients.forEach((client) => {
+    client.send(new Date().toTimeString());
+});
+}, 1000);
