@@ -132,7 +132,7 @@ const app = express()
     console.log(`Listening on ${ PORT }`);
     const { Server } = require('ws');
 
-    const wss = new Server({ app });
+    const wss = new Server({ server: app });
     wss.on('connection', (ws) => {
         console.log('Client connected');
         ws.on('close', () => console.log('Client disconnected'));
