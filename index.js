@@ -111,7 +111,19 @@ express()
 })
 .get('/db_test', (req, res) => {
 
+    var pgp = require('pg-promise')();
+    var db = pgp(process.env.DATABASE_URL);
+
+    db.one('SELECT 123 AS value')
+        .then(function (data) {
+            console.log('DATA:', data.value);
+        })
+        .catch(function (error) {
+            console.log('ERROR:', error);
+        });
+
     res.writeHead(200, {'Content-Type': 'text/plain'});
+
     res.end('Prozhektor perestroiki ' + process.env.var1);
 
 })
