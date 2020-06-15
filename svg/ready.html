@@ -34,9 +34,14 @@ body{
     <script>
         'use strict';
 const SVGNS = 'http://www.w3.org/2000/svg';
-let CANVAS_WIDTH = 1000;
-let CANVAS_HEIGHT = 1000;
-let FIELD_RADIUS = 450;
+
+const PICTURE_SIDE = 1000;
+const HIDING = .1;
+
+
+let CANVAS_WIDTH = PICTURE_SIDE;
+let CANVAS_HEIGHT = PICTURE_SIDE;
+let FIELD_RADIUS = PICTURE_SIDE * (1 + HIDING * 2) / 2;
 const ACCURACY = 1000 * 1000 * 1000;
 const PERPENDICULAR_SHIFT = .01;
 const HIDDEN_FIELD_RADIUS_LESS = 1;
@@ -215,6 +220,11 @@ function drawHiddenField(quantityOfSides) {
  * @param {String} strokeWidth color of line
  */
 function drawField(svg, quantityOfSides, strokeColor, strokeWidth) {
+    svg.style.width = PICTURE_SIDE * (1 + HIDING * 2) + 'px';
+    svg.style.height = PICTURE_SIDE * (1 + HIDING * 2) + 'px';
+    svg.style.top = -1 * PICTURE_SIDE * HIDING + 'px';
+    svg.style.left = -1 * PICTURE_SIDE * HIDING + 'px';
+
     let prevXCoord = FIELD_RADIUS*Math.cos(0);
     let prevYCoord = FIELD_RADIUS*Math.sin(0);
     fieldSegments = [];
@@ -333,7 +343,7 @@ function drawPath(svg, quantityOfSegments, startX, staryY, startAngle, strokeCol
 
 
 
-drawField(document.getElementById('mainsvg'), QUANTITY_OF_SIDES, '#fff', '5px');
+drawField(document.getElementById('mainsvg'), QUANTITY_OF_SIDES, '#000', '1px');
 drawPath(document.getElementById('mainsvg'), QUANTITY_OF_RAYS, 0, 0, (Math.random() * Math.PI*2), COLORS[0], '1px');
 
     </script>
