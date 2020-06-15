@@ -5,8 +5,6 @@ const PORT = process.env.PORT || 5000;
 
 const { Server } = require('ws');
 
-const wss = new Server({ server: app });
-
 const htmlFile = `
 <!DOCTYPE html>
 <html lang="en">
@@ -182,6 +180,9 @@ wss.on('connection', (ws) => {
         });
     });
 });
+
+
+const wss = new Server({ server: app });
 
 // setInterval(() => {
 //     wss.clients.forEach((client) => {
