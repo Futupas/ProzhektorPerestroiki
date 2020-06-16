@@ -3,8 +3,6 @@
 const express = require('express');
 const PORT = process.env.PORT || 5000;
 
-const fs = require('fs');
-
 const generateSvg = require('./generate_svg');
 
 const { Server } = require('ws');
@@ -23,6 +21,12 @@ const app = express()
 .get('/', (req, res) => {
     let delta = Math.random() * (Math.PI / 16); // about 0..11deg
 
+    let options = {
+        windowSize: { width: 1000, height: 1000 },
+        shotSize: { width: 'window', height: 'window' },
+        siteType: 'html'
+    };
+    
     db.one(`UPDATE "angle_table" SET "value" = mod(CAST("value" + ${delta} AS NUMERIC), CAST(PI() AS NUMERIC)) WHERE "key" = 0 RETURNING "value"`)
         .then(function (data) {
             var webshot = require('webshot');
