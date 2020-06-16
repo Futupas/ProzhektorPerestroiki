@@ -2,7 +2,6 @@
 const PICTURE_SIDE = 1000;
 const HIDING = .1;
 
-
 let CANVAS_WIDTH = PICTURE_SIDE;
 let CANVAS_HEIGHT = PICTURE_SIDE;
 let FIELD_RADIUS = PICTURE_SIDE * (1 + HIDING * 2) / 2;
@@ -334,11 +333,56 @@ function drawPath(quantityOfSegments, startX, staryY, startAngle, strokeColor, s
  * @param {number} angle start angle for drawing
  * @return {String} svg outer tag to insert to body
  */
-exports.generate = function (angle) {
+let generateSvgString = function (angle) {
     let svgStyleWidth = PICTURE_SIDE * (1 + HIDING * 2);
     let svgStyleHeight = PICTURE_SIDE * (1 + HIDING * 2);
     let svgOpenTag = `<svg style="width: ${svgStyleWidth}px; height: ${svgStyleHeight}px;">`;
     drawField(QUANTITY_OF_SIDES);
     let pathSvg = drawPath(QUANTITY_OF_RAYS, 0, 0, angle, COLORS[0], '1px');
     return svgOpenTag + pathSvg + '</svg>';
+}
+
+
+/**
+ * generates html document as string with picture
+ * @param {number} angle start angle for drawing
+ * @return {String} HTML document as string
+ */
+exports.generateHTMLString = function (angle) {
+    return `
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Art1 by Futupas</title>
+    <style>
+*{
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+
+body{
+    background-color: #000;
+    overflow: hidden;
+}
+
+#mainsvg{
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    width: 1000px;
+    height: 1000px;
+    background-color: #000;
+    z-index: 2;
+}
+
+    </style>
+</head>
+<body>
+    ${generateSvgString(angle)}
+</body>
+</html>
+    `;
 }

@@ -7,44 +7,6 @@ const generateSvg = require('./generate_svg');
 
 const { Server } = require('ws');
 
-const htmlFile = `
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Art1 by Futupas</title>
-    <style>
-*{
-    margin: 0px;
-    padding: 0px;
-    box-sizing: border-box;
-}
-
-body{
-    background-color: #000;
-    overflow: hidden;
-}
-
-#mainsvg{
-    position: fixed;
-    top: 0px;
-    left: 0px;
-    width: 1000px;
-    height: 1000px;
-    background-color: #000;
-    z-index: 2;
-}
-
-    </style>
-</head>
-<body>
-    
-
-
-</body>
-</html>
-`;
 
 
 const app = express()
@@ -70,13 +32,12 @@ const app = express()
 
     db.one(`UPDATE "angle_table" SET "value" = mod(CAST("value" + ${delta} AS NUMERIC), CAST(PI() AS NUMERIC)) WHERE "key" = 0 RETURNING "value"`)
         .then(function (data) {
-            console.log('DATA:', data.value);
             var webshot = require('webshot');
-            webshot(htmlFile, 'static/file.png', options, function(err) {
+            webshot(generateSvg.generateHTMLString(data.value * 1.0), 'static/picture.png', options, function(err) {
                 wss.clients.forEach((client) => {
                     client.send('c');
                 });
-                res.sendfile('static/file.png');
+                res.sendfile('static/picture.png');
             });
         })
         .catch(function (error) {
