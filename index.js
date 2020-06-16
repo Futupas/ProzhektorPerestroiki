@@ -51,16 +51,7 @@ const app = express()
     res.writeHead(200, {'Content-Type': 'text/plain'});
     res.end('Prozhektor perestroiki');
 })
-.get('/a', (req, res) => {
-    res.writeHead(200, {'Content-Type': 'text/plain'});
-    res.end('Prozhektor perestroiki a ');
-})
-.get('/b', (req, res) => {
-    res.writeHead(200, {'Content-Type': 'text/plain'});
-    res.end('Prozhektor perestroiki b');
-})
-.get('/screen', (req, res) => {
-    // res.writeHead(200, {'Content-Type': 'text/plain'});
+.get('/picture', (req, res) => {
 
     var options = {
         windowSize: { width: 1000, height: 1000 },
@@ -68,95 +59,31 @@ const app = express()
         siteType: 'html'
     };
 
-
-    var webshot = require('webshot');
-
-    webshot(htmlFile, 'static/file.png', options, function(err) {
-        res.sendfile('static/file.png');
-    });
-
-
-
-    // res.writeHead(200, {'Content-Type': 'text/plain'});
-    // res.end('Prozhektor perestroiki ');
-})
-.get('/bfff', (req, res) => {
-    const jsdom = require("jsdom");
-    const { JSDOM } = jsdom;
-    const dom = new JSDOM(`<!DOCTYPE html><html><head></head><body></body></html>`);
-    let document = dom.window.document;
-
-    let svg = document.createElement('svg');
-    svg.style.width = '500px';
-    svg.style.height = '500px';
-    svg.innerHTML = '<line x1="5" y1="5" x2="100" y2="200" style="stroke: red; stroke-width: 3px;" />';
-
-
-    res.writeHead(200, {'Content-Type': 'text/plain'});
-    res.end('Prozhektor perestroiki '+document.body.outerHTML);
-})
-.get('/bdddd', (req, res) => {
-    // const svg = fs.readFile(input, 'utf8');
-    // const canvas = preset.createCanvas(800, 600);
-    // const ctx = canvas.getContext('2d');
-    // const v = Canvg.fromString(ctx, svg, preset);
-
-    // // Render only first frame, ignoring animations.
-    // v.render();
-
-    // const png = canvas.toBuffer();
-
-    // fs.writeFile(output, png);
-
-
-    res.writeHead(200, {'Content-Type': 'text/plain'});
-    res.end('Prozhektor perestroiki b');
-
-})
-.get('/db_test', (req, res) => {
 
     var pgp = require('pg-promise')();
     var db = pgp(process.env.DATABASE_URL);
 
-    db.one('SELECT 123 AS value')
+    
+    let delta = Math.random() * Math.PI * 2;
+
+    db.one(`UPDATE "angle_table" SET "value" = "value" + ${delta} WHERE "key" = 0 RETURNING "value"`)
         .then(function (data) {
             console.log('DATA:', data.value);
+            var webshot = require('webshot');
+            webshot(htmlFile, 'static/file.png', options, function(err) {
+                wss.clients.forEach((client) => {
+                    client.send('c');
+                });
+                res.sendfile('static/file.png');
+            });
         })
         .catch(function (error) {
             console.log('ERROR:', error);
+
+            res.writeHead(200, {'Content-Type': 'text/plain'});
+        
+            res.end('error ' + error);
         });
-
-    res.writeHead(200, {'Content-Type': 'text/plain'});
-
-    res.end('Prozhektor perestroiki ' + process.env.var1);
-
-})
-.get('/picture', (req, res) => {
-
-    let angle = process.env.angle * 1.0;
-    if (angle === undefined) {
-        angle = 0;
-        console.log('Angle is undefined!');
-    }
-    let delta = Math.random() * Math.PI * 2;
-    angle += delta;
-    process.env.angle = angle;
-
-    var options = {
-        windowSize: { width: 1000, height: 1000 },
-        shotSize: { width: 'window', height: 'window' },
-        siteType: 'html'
-    };
-
-
-    var webshot = require('webshot');
-
-    webshot(htmlFile, 'static/file.png', options, function(err) {
-        wss.clients.forEach((client) => {
-            client.send('c');
-        });
-        res.sendfile('static/file.png');
-    });
 
 })
 .listen(PORT, () => {
@@ -176,11 +103,3 @@ wss.on('connection', (ws) => {
         });
     });
 });
-
-
-
-// setInterval(() => {
-//     wss.clients.forEach((client) => {
-//         client.send(new Date().toTimeString());
-//     });
-// }, 1000);
