@@ -7,3 +7,5 @@ SET "value" = "value" + 0.1
 WHERE "key" = 0 
 RETURNING "value" 
 
+UPDATE "angle_table" SET "value" = mod(CAST("value" + 0.1 AS NUMERIC), CAST(PI() AS NUMERIC)) WHERE "key" = 0 RETURNING "value"
+

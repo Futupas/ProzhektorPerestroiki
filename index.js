@@ -64,9 +64,9 @@ const app = express()
     var db = pgp(process.env.DATABASE_URL);
 
     
-    let delta = Math.random() * Math.PI * 2;
+    let delta = Math.random() * (Math.PI / 16); // about 0..11deg
 
-    db.one(`UPDATE "angle_table" SET "value" = "value" + ${delta} WHERE "key" = 0 RETURNING "value"`)
+    db.one(`UPDATE "angle_table" SET "value" = mod(CAST("value" + ${delta} AS NUMERIC), CAST(PI() AS NUMERIC)) WHERE "key" = 0 RETURNING "value"`)
         .then(function (data) {
             console.log('DATA:', data.value);
             var webshot = require('webshot');
