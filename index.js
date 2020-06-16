@@ -23,8 +23,8 @@ const app = express()
 
     const noCacheOptions = {
         headers: {
-            'Cache-Control': 'no-cache',
-            // 'Cache-Control': 'private, no-cache, no-store, must-revalidate',
+            // 'Cache-Control': 'no-cache',
+            'Cache-Control': 'no-cache, no-store, must-revalidate',
             // 'Expires': '-1',
             // 'Pragma': 'no-cache'
         }
