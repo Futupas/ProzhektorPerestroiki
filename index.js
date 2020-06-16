@@ -133,23 +133,17 @@ const app = express()
 })
 .get('/picture', (req, res) => {
 
-    // var pgp = require('pg-promise')();
-    // var db = pgp(process.env.DATABASE_URL);
-
-    // db.one('SELECT 123 AS value')
-    //     .then(function (data) {
-    //         console.log('DATA:', data.value);
-    //     })
-    //     .catch(function (error) {
-    //         console.log('ERROR:', error);
-    //     });
-
-    // res.writeHead(200, {'Content-Type': 'text/plain'});
-
-    // res.end('Prozhektor perestroiki ' + process.env.var1);
+    let angle = process.env.angle * 1.0;
+    if (angle === undefined) {
+        angle = 0;
+        console.log('Angle is undefined!');
+    }
+    let delta = Math.random() * Math.PI * 2;
+    angle += delta;
+    process.env.angle = angle;
 
     var options = {
-        windowSize: { width: 800, height: 800 },
+        windowSize: { width: 1000, height: 1000 },
         shotSize: { width: 'window', height: 'window' },
         siteType: 'html'
     };
