@@ -170,6 +170,8 @@ const app = express()
 } );
 
 
+const wss = new Server({ server: app });
+
 wss.on('connection', (ws) => {
     console.log('Client connected');
     ws.on('close', () => console.log('Client disconnected'));
@@ -182,7 +184,6 @@ wss.on('connection', (ws) => {
 });
 
 
-const wss = new Server({ server: app });
 
 // setInterval(() => {
 //     wss.clients.forEach((client) => {
