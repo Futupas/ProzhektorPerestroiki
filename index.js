@@ -14,7 +14,7 @@ const app = express()
     res.writeHead(200, {'Content-Type': 'text/plain'});
     res.end('Prozhektor perestroiki');
 })
-.get('/picture', (req, res) => {
+.get('/picture.png', (req, res) => {
 
     var options = {
         windowSize: { width: 1000, height: 1000 },
@@ -32,11 +32,11 @@ const app = express()
     db.one(`UPDATE "angle_table" SET "value" = mod(CAST("value" + ${delta} AS NUMERIC), CAST(PI() AS NUMERIC)) WHERE "key" = 0 RETURNING "value"`)
         .then(function (data) {
             var webshot = require('webshot');
-            webshot(generateSvg.generateHTMLString(data.value * 1.0), 'static/picture.png', options, function(err) {
+            webshot(generateSvg.generateHTMLString(data.value * 1.0), 'static/_private_picture.png', options, function(err) {
                 wss.clients.forEach((client) => {
                     client.send('c');
                 });
-                res.sendfile('static/picture.png');
+                res.sendfile('static/_private_picture.png');
             });
         })
         .catch(function (error) {
@@ -58,10 +58,10 @@ const wss = new Server({ server: app });
 wss.on('connection', (ws) => {
     console.log('Client connected');
     ws.on('close', () => console.log('Client disconnected'));
-    ws.on('message', function incoming(data) {
-        console.log('incoming ws data: ' + data);
-        wss.clients.forEach((client) => {
-            client.send('someone sent: ' + data);
-        });
-    });
+    // ws.on('message', function incoming(data) {
+    //     console.log('incoming ws data: ' + data);
+    //     wss.clients.forEach((client) => {
+    //         client.send('someone sent: ' + data);
+    //     });
+    // });
 });
