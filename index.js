@@ -11,8 +11,7 @@ const { Server } = require('ws');
 const app = express()
 .use(express.static('static'))
 .get('/', (req, res) => {
-    res.writeHead(200, {'Content-Type': 'text/plain'});
-    res.end('Prozhektor perestroiki');
+    res.sendfile('static/main.html');
 })
 .get('/picture.png', (req, res) => {
 
@@ -22,6 +21,14 @@ const app = express()
         siteType: 'html'
     };
 
+    const noCacheOptions = {
+        headers: {
+            // 'Cache-Control': 'no-cache',
+            'Cache-Control': 'private, no-cache, no-store, must-revalidate',
+            'Expires': '-1',
+            'Pragma': 'no-cache'
+        }
+    };
 
     var pgp = require('pg-promise')();
     var db = pgp(process.env.DATABASE_URL);
@@ -36,7 +43,7 @@ const app = express()
                 wss.clients.forEach((client) => {
                     client.send('c');
                 });
-                res.sendfile('static/_private_picture.png');
+                res.sendfile('static/_private_picture.png', noCacheOptions);
             });
         })
         .catch(function (error) {
