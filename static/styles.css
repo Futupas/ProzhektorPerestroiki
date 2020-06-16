@@ -7,7 +7,7 @@ body{
     font-size: 100%;
 }
 #picture {
-    background: black url("./picture.png") no-repeat center center;
+    background: black;
     background-size: cover;
     position: fixed;
     top: 0px;

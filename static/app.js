@@ -1,4 +1,8 @@
-// 'use strict';
+'use strict';
+window.onload = function(e) {
+    document.getElementById('picture').style.background = 
+        `black url("./picture.png?date=${new Date().toString()}&random=${Math.random()}") no-repeat center center`;
+}
 // let socket = new WebSocket("wss://prozhektorperestroiki.herokuapp.com/");
 
 // socket.onopen = function(e) {
