@@ -8,7 +8,6 @@ const generateSvg = require('./generate_svg');
 const { Server } = require('ws');
 
 
-
 const app = express()
 .use(express.static('static'))
 .get('/', (req, res) => {
