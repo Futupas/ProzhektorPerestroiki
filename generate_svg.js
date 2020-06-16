@@ -35,14 +35,14 @@ class PathElement {
     /**
      * sets d attribute of path
      */
-    setD = function(newD) {
+    setD (newD) {
         this.d = '' + newD;
     }
 
     /**
      * appends string to the d attribute of path
      */
-    appendD = function(newD) {
+    appendD (newD) {
         this.d += '' + newD;
     }
 
@@ -50,7 +50,7 @@ class PathElement {
     /**
      * @return {String} SVG string representing path (with " quotes)
      */
-    draw = function() {
+    draw () {
         return `<path style="stroke: ${this.style.stroke}; stroke-width: ${this.style.strokeWidth}; fill: ${this.style.fill};" d="${this.d}" />`;
     }
 }
