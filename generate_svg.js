@@ -51,7 +51,7 @@ class PathElement {
      * @return {String} SVG string representing path (with " quotes)
      */
     draw () {
-        return `<path style="stroke: ${this.style.stroke}; stroke-width: ${this.style.strokeWidth}; fill: ${this.style.fill};" d="${this.d}" />`;
+        return `<path style="stroke: ${this.styleStroke}; stroke-width: ${this.styleStrokeWidth}; fill: ${this.styleFill};" d="${this.d}" />`;
     }
 }
 
