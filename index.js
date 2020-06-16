@@ -3,6 +3,8 @@
 const express = require('express');
 const PORT = process.env.PORT || 5000;
 
+const fs = require('fs');
+
 const generateSvg = require('./generate_svg');
 
 const { Server } = require('ws');
@@ -37,6 +39,12 @@ const app = express()
             webshot(generateSvg.generateHTMLString(data.value * 1.0), 'static/_private_picture.png', options, function(err) {
                 wss.clients.forEach((client) => {
                     // client.send('c');
+                    fs.readFile('static/_private_picture.png', function (err, data) {
+                        if (err) {
+                            console.log(err);
+                        }
+                        client.send(data, { binary: true });
+                    });
                 });
                 res.sendfile('static/_private_picture.png', noCacheOptions);
             });

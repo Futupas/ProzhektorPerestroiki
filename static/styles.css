@@ -30,4 +30,14 @@ body{
     z-index: 2;
     font-size: 1.2em;
     font-family: Arial;
+    animation: main_block_moving .7s ease-in 0s 1;
+}
+
+@keyframes main_block_moving{
+    from {
+        top: 90vh;
+    }
+    to {
+        top: 100vh;
+    }
 }
