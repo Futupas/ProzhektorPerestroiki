@@ -30,7 +30,14 @@ body{
     z-index: 2;
     font-size: 1.2em;
     font-family: Arial;
-    animation: main_block_moving .7s ease-in 0s 1;
+}
+
+#main h1{
+    font-size: 1.3em;
+    text-align: center;
+}
+#main p{
+    margin-top: .5em;
 }
 
 @keyframes main_block_moving{
@@ -40,4 +47,46 @@ body{
     to {
         top: 100vh;
     }
+}
+@keyframes link_animation{
+    0% {
+        padding-left: 1em;
+        background-position: 0em center;
+    }
+    50% {
+        padding-left: 2em;
+        background-position: 1em center;
+    }
+    100% {
+        padding-left: 1em;
+        background-position: 0em center;
+    }
+}
+
+
+#main a.smlink,
+#main a.visited{
+    display: block;
+    font-size: 1em;
+    padding-left: 1em;
+    color: white;
+    text-decoration: none;
+    background-repeat: no-repeat;
+    background-position: left center;
+    background-size: .9em .9em;
+    animation: none;
+}
+
+#main a.smlink:hover,
+#main a.smlink:active{
+    display: block;
+    font-size: 1em;
+    /* padding-left: 2em; */
+    color: white;
+    text-decoration: none;
+    background-repeat: no-repeat;
+    /* background-position: 1em center; */
+    background-size: .9em .9em;
+    animation: link_animation 1s ease-out 0s infinite;
+    transition: padding-left 1s ease-out, background-position 1s ease-out;
 }

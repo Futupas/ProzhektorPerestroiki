@@ -1,6 +1,11 @@
 'use strict';
 
 window.onload = function(e) {
+    if (window.scrollY <= document.querySelector('#main > p').offsetTop) {
+        document.getElementById('main').style.animation = 
+            'main_block_moving .7s ease-in 0s 1';
+    }
+
     document.getElementById('picture').style.backgroundImage = 
         `url("./picture.png?date=${Date.now()}&random=${Math.random()}")`;
 }
