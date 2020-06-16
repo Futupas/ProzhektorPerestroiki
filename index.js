@@ -7,11 +7,20 @@ const generateSvg = require('./generate_svg');
 
 const { Server } = require('ws');
 
+const noCacheOptions = {
+    headers: {
+        // 'Cache-Control': 'no-cache',
+        'Cache-Control': 'no-cache, no-store, must-revalidate'
+        // 'Expires': '-1',
+        // 'Pragma': 'no-cache'
+    }
+};
+
 
 const app = express()
 .use(express.static('static'))
 .get('/', (req, res) => {
-    res.sendfile('static/main.html');
+    res.sendfile('static/main.html', noCacheOptions);
 })
 .get('/picture.png', (req, res) => {
 
@@ -19,15 +28,6 @@ const app = express()
         windowSize: { width: 1000, height: 1000 },
         shotSize: { width: 'window', height: 'window' },
         siteType: 'html'
-    };
-
-    const noCacheOptions = {
-        headers: {
-            // 'Cache-Control': 'no-cache',
-            'Cache-Control': 'no-cache, no-store, must-revalidate',
-            // 'Expires': '-1',
-            // 'Pragma': 'no-cache'
-        }
     };
 
     var pgp = require('pg-promise')();
