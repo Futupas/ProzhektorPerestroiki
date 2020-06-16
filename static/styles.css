@@ -75,6 +75,7 @@ body{
     background-position: left center;
     background-size: .9em .9em;
     animation: none;
+    margin-left: 1em;
 }
 
 #main a.smlink:hover,
