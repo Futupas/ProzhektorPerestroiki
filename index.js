@@ -63,7 +63,7 @@ const app = express()
     // res.writeHead(200, {'Content-Type': 'text/plain'});
 
     var options = {
-        windowSize: { width: 800, height: 800 },
+        windowSize: { width: 1000, height: 1000 },
         shotSize: { width: 'window', height: 'window' },
         siteType: 'html'
     };
