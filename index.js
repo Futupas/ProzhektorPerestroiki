@@ -21,35 +21,16 @@ let db = pgp(process.env.DATABASE_URL);
 const app = express()
 .use(express.static('static'))
 .get('/', (req, res) => {
-    res.sendfile('static/main.html', noCacheOptions);
-})
-.get('/picture.png', (req, res) => {
-
-    var options = {
-        windowSize: { width: 1000, height: 1000 },
-        shotSize: { width: 'window', height: 'window' },
-        siteType: 'html'
-    };
-    
     let delta = Math.random() * (Math.PI / 16); // about 0..11deg
 
     db.one(`UPDATE "angle_table" SET "value" = mod(CAST("value" + ${delta} AS NUMERIC), CAST(PI() AS NUMERIC)) WHERE "key" = 0 RETURNING "value"`)
         .then(function (data) {
             var webshot = require('webshot');
-            webshot(generateSvg.generateHTMLString(data.value * 1.0), 'static/_private_picture.png', options, function(err) {
+            webshot(generateSvg.generateHTMLString(data.value * 1.0), 'static/picture.png', options, function(err) {
                 wss.clients.forEach((client) => {
-                    // client.send('c');
-                    const contents = fs.readFileSync('static/_private_picture.png', {encoding: 'base64'});
-                    client.send(encodeURI(contents));
-
-                    // fs.readFile('static/_private_picture.png', function (err, data) {
-                    //     if (err) {
-                    //         console.log(err);
-                    //     }
-                    //     client.send(data, { binary: true });
-                    // });
+                    client.send('c');
                 });
-                res.sendfile('static/_private_picture.png', noCacheOptions);
+                res.sendfile('static/main.html', noCacheOptions);
             });
         })
         .catch(function (error) {
@@ -57,7 +38,6 @@ const app = express()
             res.writeHead(200, {'Content-Type': 'text/plain'});
             res.end('error ' + error);
         });
-
 })
 .get('/keep_active', (req, res) => {
     res.writeHead(200, {'Content-Type': 'text/plain'});
