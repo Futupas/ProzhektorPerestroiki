@@ -29,11 +29,9 @@ class PathElement {
 
     }
 
-    style = {
-        stroke: '#000',
-        strokeWidth: '1px',
-        fill: '#000'
-    }
+    styleStroke = '#000';
+    styleStrokeWidth = '1px';
+    styleFill = '#000';
 
     d = '';
 
@@ -289,9 +287,9 @@ function drawPath(quantityOfSegments, startX, staryY, startAngle, strokeColor, s
 
     /** @type {PathElement} */
     let path = new PathElement();
-    path.style.stroke = strokeColor;
-    path.style.strokeWidth = strokeWidth;
-    path.style.fill = COLORS[color];
+    path.styleStroke = strokeColor;
+    path.styleStrokeWidth = strokeWidth;
+    path.styleFill = COLORS[color];
     let x = startX;
     let y = staryY;
     let angle = startAngle % (2*Math.PI);
