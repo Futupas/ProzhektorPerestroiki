@@ -36,16 +36,14 @@ const app = express()
             var webshot = require('webshot');
             webshot(generateSvg.generateHTMLString(data.value * 1.0), 'static/_private_picture.png', options, function(err) {
                 wss.clients.forEach((client) => {
-                    client.send('c');
+                    // client.send('c');
                 });
                 res.sendfile('static/_private_picture.png', noCacheOptions);
             });
         })
         .catch(function (error) {
             console.log('ERROR:', error);
-
             res.writeHead(200, {'Content-Type': 'text/plain'});
-        
             res.end('error ' + error);
         });
 
