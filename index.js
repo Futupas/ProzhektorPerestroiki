@@ -40,7 +40,7 @@ const app = express()
                 wss.clients.forEach((client) => {
                     // client.send('c');
                     const contents = fs.readFileSync('static/_private_picture.png', {encoding: 'base64'});
-                    client.send(contents);
+                    client.send(encodeURI(contents));
 
                     // fs.readFile('static/_private_picture.png', function (err, data) {
                     //     if (err) {

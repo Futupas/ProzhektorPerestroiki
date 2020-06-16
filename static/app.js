@@ -14,7 +14,7 @@ socket.onopen = function (e) { };
 socket.onmessage = function(e) {
     // document.getElementById('picture').style.backgroundImage = 
     //     `url("./picture.png?date=${Date.now()}&random=${Math.random()}")`;
-    let picture = `data:image/png;base64,${e.data}`;
+    let picture = `data:image/png;base64,${decodeURI(e.data)}`;
     // console.log(e.data);
     // console.log(btoa(e.data));
     // console.log(atob(e.data));
