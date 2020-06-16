@@ -25,15 +25,15 @@ let raySegments = [];
 
 
 class PathElement {
-    constructor () {
-
-    }
-
     styleStroke = '#000';
     styleStrokeWidth = '1px';
     styleFill = '#000';
 
     d = '';
+
+    constructor () {
+
+    }
 
     /**
      * sets d attribute of path
