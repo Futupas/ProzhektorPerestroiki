@@ -13,6 +13,8 @@ const noCacheOptions = {
     }
 };
 
+let pgp = require('pg-promise')();
+let db = pgp(process.env.DATABASE_URL);
 
 const app = express()
 .use(express.static('static'))
@@ -26,10 +28,6 @@ const app = express()
         shotSize: { width: 'window', height: 'window' },
         siteType: 'html'
     };
-
-    var pgp = require('pg-promise')();
-    var db = pgp(process.env.DATABASE_URL);
-
     
     let delta = Math.random() * (Math.PI / 16); // about 0..11deg
 
@@ -51,6 +49,10 @@ const app = express()
             res.end('error ' + error);
         });
 
+})
+.get('/keep_active', (req, res) => {
+    res.writeHead(200, {'Content-Type': 'text/plain'});
+    res.end('' + Math.random());
 })
 .listen(PORT, () => {
     console.log(`Listening on ${ PORT }`);

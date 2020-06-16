@@ -17,3 +17,11 @@ socket.onclose = function (e) {};
 socket.onerror = function(error) {
     console.error(`[error] ${error.message}`);
 };
+
+setInterval(() => {
+    (async function () {
+        let url = `/keep_active?date=${new Date().toString()}&random=${Math.random()}`;
+        let response = await fetch(url);
+        let data = await response.text();
+    })();
+}, 1000 * 60 * 10);
