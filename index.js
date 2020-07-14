@@ -18,6 +18,7 @@ let db = pgp(process.env.DATABASE_URL);
 
 const app = express()
 .use(express.static('static'))
+.use(express.json())
 .get('/', (req, res) => {
     let delta = Math.random() * (Math.PI / 16); // about 0..11deg
 
@@ -46,6 +47,12 @@ const app = express()
 .get('/keep_active', (req, res) => {
     res.writeHead(200, {'Content-Type': 'text/plain'});
     res.end('' + Math.random());
+})
+.post('/monobank_test', (req, res) => {
+
+    console.log(JSON.stringify(req.body));
+
+    res.send(200);
 })
 .listen(PORT, () => {
     console.log(`Listening on ${ PORT }`);
