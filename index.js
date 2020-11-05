@@ -19,7 +19,8 @@ let db = pgp(process.env.DATABASE_URL);
 const app = express()
 .use(express.static('static'))
 .use(express.json())
-.get('/ua', (req, res) => {    
+.get('/ua', (req, res) => { 
+    console.log('fff');   
     let delta = Math.random() * (Math.PI / 16); // about 0..11deg
 
     let options = {
@@ -70,7 +71,7 @@ const app = express()
             res.end('error ' + error);
         });
 
-    })
+})
 .get('/keep_active', (req, res) => {
     res.writeHead(200, {'Content-Type': 'text/plain'});
     res.end('' + Math.random());
