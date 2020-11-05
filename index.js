@@ -69,7 +69,6 @@ const app = express()
             res.writeHead(200, {'Content-Type': 'text/plain'});
             res.end('error ' + error);
         });
-
 })
 .get('/keep_active', (req, res) => {
     res.writeHead(200, {'Content-Type': 'text/plain'});
