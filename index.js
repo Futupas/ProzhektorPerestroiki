@@ -14,7 +14,11 @@ const noCacheOptions = {
 };
 
 let pgp = require('pg-promise')();
-let db = pgp(process.env.DATABASE_URL);
+const config = {
+    connectionString: process.env.DATABASE_URL,
+    ssl: { rejectUnauthorized: false }
+ };
+const db = pgp(config);
 
 const app = express()
 .use(express.static('static'))
